@@ -22,13 +22,23 @@ eImageTypes CheckFileType(FILE* openedFile);
 int main(int argc, char** argv){
 	FILE* inputFile;
 
-	if(argc<=1) printf("No arguments supplied."); // do nothing
+	if(argc<=1) printf("No arguments supplied. Exiting."); // do nothing
 	if(argc>1){
 		printf("Output path not mentioned. Output will be stored in the same directory named: out+%s.\n",argv[1]);
 		inputFile=fopen(argv[1],"r+");	
 		if(inputFile!=NULL && ferror(inputFile)==0){
 			extractedPic.imgType=CheckFileType(inputFile);
+      if(extractedPic.imgType==BMP){
+        // check file contents
+        // extract the header to read the file
+        // extract the bitmap  
+      }
+      //do the same for other formats
 		}
+    else{
+      perror("Error occured while opening file: ");
+      printf("%d\n",ferror(inputFile));
+    }
 		(void)getchar();
 	}
 
